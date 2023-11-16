@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelingKRProj
 {
-    internal class ModelingSystem
+    public class ModelingSystem
     {
         #region Vars
         private double step;
