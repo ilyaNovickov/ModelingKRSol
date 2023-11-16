@@ -112,6 +112,10 @@ namespace ModelingKRProj
             }
         }
         #endregion
+        #region Events
+        public EventHandler<ModelingEventArgs> ModelingEvent;
+        #endregion
+        #region Methods
         public void InvokeModeling()
         {
             double xp = 0;
@@ -149,6 +153,7 @@ namespace ModelingKRProj
                 if (p >= 0)
                 {
                     //output
+                    ModelingEvent?.Invoke(this, new ModelingEventArgs(this));
                     pos++;
                 }
                 time = time + StepofModeling;
@@ -156,5 +161,6 @@ namespace ModelingKRProj
             }
             while (time < TimeofRegulation);
         }
+        #endregion
     }
 }
