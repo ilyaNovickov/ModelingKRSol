@@ -20,24 +20,7 @@ namespace ModelingKRProj
 
             system = new ModelingSystem();
 
-            propertyGrid1.SelectedObject = system;
-
-            //propertyGrid1.Refresh();
         }
 
-        private void propertyGrid1_SelectedObjectsChanged(object sender, EventArgs e)
-        {
-            ((PropertyGrid)(sender)).Refresh();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            propertyGrid1.SelectedObject = system;
-        }
-
-        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            
-        }
     }
 }
