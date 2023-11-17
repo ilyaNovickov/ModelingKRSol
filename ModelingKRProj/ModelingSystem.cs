@@ -184,13 +184,20 @@ namespace ModelingKRProj
 
                 yx = yx + y1 * StepofModeling;
 
-                y = yp[i];
+                if (n1 != 0)
+                {
+                    y = yp[i];
 
-                yp[i] = yx;
+                    yp[i] = yx;
 
-                i++;
-                if (i >= n1)
-                    i = 0;
+                    i++;
+                    if (i >= n1)
+                        i = 0;
+                }
+                else
+                {
+                    y = yx;
+                }
 
                 ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, x2));
 
