@@ -69,7 +69,7 @@ namespace ModelingKRProj
             get => gainCooficient;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                     throw new Exception("Коофициент уселения не может быть отрицательным");
                 gainCooficient = value;
             }
@@ -82,7 +82,7 @@ namespace ModelingKRProj
             get => constofTime;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                     throw new Exception("Постоянная времени не может быть отрицательным");
                 constofTime = value;
             }
@@ -95,7 +95,7 @@ namespace ModelingKRProj
             get => timeofDelay;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                     throw new Exception("Время запаздывания не может быть отрицательным");
                 timeofDelay = value;
             }
@@ -108,7 +108,7 @@ namespace ModelingKRProj
             get => cooficientP;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                     throw new Exception("Коофициент П не может быть отрицательным");
                 cooficientP = value;
             }
@@ -121,7 +121,7 @@ namespace ModelingKRProj
             get => cooficientI;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                     throw new Exception("Коофициент И не может быть отрицательным");
                 cooficientI = value;
             }
@@ -150,52 +150,57 @@ namespace ModelingKRProj
             double yx = 0;
             double y = 0;
 
-            double x1 = 1;
             double I = 0;
-
-            double xp = 0;
-            
-            
 
             int n1 = (int)(TimeofDelay / StepofModeling);
             double[] yp = new double[n1];
 
             int i = 0;
-            int p = 0;
-            int pos = 0;
 
             double c1 = GainCooficient / TimeConst;
             double c2 = -1 / TimeConst;
+
+            double x1 = 0;
 
             double time = 0;
 
             do
             {
+                double xp = x1;
+
                 x1 = InputValue - y;
-                double x2 = (x1 - xp) / StepofModeling;
+
+                double x2 = xp == 0 ? 0 : (x1 - xp) / StepofModeling;
+
                 xp = x1;
+
                 I = I + ((x1 + xp) / 2) * StepofModeling;
+
                 double u = Pvalue * x1 + Ivalue * I;
+
                 double xt = Noise + u;
+
                 double y1 = c1 * xt + c2 * yx;
+
                 yx = yx + y1 * StepofModeling;
+
                 y = yp[i];
+
                 yp[i] = yx;
+
                 i++;
                 if (i >= n1)
                     i = 0;
-                if (p >= 0)
-                {
-                    //output
-                    ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, x2));
-                    pos++;
-                }
+
+                ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, x2));
+
                 time = time + StepofModeling;
-                p++;
             }
             while (time < TimeofRegulation);
 
+            /*
             ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, 0));
+            */
         }
         #endregion
     }

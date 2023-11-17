@@ -25,12 +25,13 @@ namespace ModelingKRProj
 
             system = new ModelingSystem()
             {
-                InputValue = 1,
-                GainCooficient = 10,
-                TimeConst = 10,
-                TimeofDelay = 1,
-                Pvalue = 0.11d,
-                Ivalue = 0.012d
+                StepofModeling = 0.01d,
+                InputValue = 1d,
+                GainCooficient = 4.9d,
+                TimeConst = 4.8d,
+                TimeofDelay = 4.8d,
+                Pvalue = 0.2d,
+                Ivalue = 0.02d
             };
             system.ModelingEvent += ModelingEvent;
 
