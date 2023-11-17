@@ -139,13 +139,25 @@ namespace ModelingKRProj
         //        cooficientD = value;
         //    }
         //}
+        [Category("Критерии оптимизации")]
         public double ISE { get; private set; }
+        [Category("Критерии оптимизации")]
         public double IAE { get; private set; }
+        [Category("Критерии оптимизации")]
         public double ITAE { get; private set; }
+        [Category("Критерии оптимизации")]
         public double ITSE { get; private set; }
-
+        [Category("Характеристики САУ")]
+        [Description("Перерегулирование")]
+        [DisplayName("Перерегулирование")]
         public double Overregulation { get; private set; }
+        [Category("Характеристики САУ")]
+        [Description("Колебательность")]
+        [DisplayName("Колебательность")]
         public double Oscillation { get; private set; }
+        [Category("Характеристики САУ")]
+        [Description("Время регулирования")]
+        [DisplayName("Время регулирования")]
         public double TimeofRegulation { get; private set; }
         #endregion
         #region Events
@@ -173,8 +185,8 @@ namespace ModelingKRProj
             double x1 = 0;
 
             double time = 0;
-
-            double autorErr = Math.Abs(InputValue) * 0.05;//Определяет значение в которое должно установиться модель +=5%
+            //Определяет значение в которое должно установиться модель +=5%
+            double autorErr = Math.Abs(InputValue) * 0.05;
             bool isInf = false;//Бесконечно ли моделирование?
             double max1 = 0;//Амплитуда 1
             double max2 = 0;//Амплитуда 2
