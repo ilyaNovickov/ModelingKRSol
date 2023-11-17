@@ -25,6 +25,10 @@ namespace ModelingKRProj
 
             system = new ModelingSystem();
 
+            system.ModelingEvent += ModelingEvent;
+
+            system.ModelingEvent += PhaseModelingEvent;
+
             propertyGrid.SelectedObject = system;
 
             propertyGrid.Refresh();
@@ -44,5 +48,19 @@ namespace ModelingKRProj
             this.phaseChart.Series.Add(phaseSeries);
         }
 
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            system.InvokeModeling();
+        }
+
+        private void ModelingEvent(object sender, ModelingEventArgs e)
+        {
+            modelingSeries.Points.Add(new DataPoint(e.CurrentTime_t, e.OutputValue_y));
+        }
+
+        private void PhaseModelingEvent(object sender, ModelingEventArgs e)
+        {
+
+        }
     }
 }

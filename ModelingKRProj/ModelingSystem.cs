@@ -181,7 +181,7 @@ namespace ModelingKRProj
                 if (p >= 0)
                 {
                     //output
-                    ModelingEvent?.Invoke(this, new ModelingEventArgs(this));
+                    ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, x2));
                     pos++;
                 }
                 time = time + StepofModeling;

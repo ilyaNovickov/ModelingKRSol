@@ -9,8 +9,13 @@ namespace ModelingKRProj
     public class ModelingEventArgs : EventArgs
     {
         #region Constr
-        public ModelingEventArgs(ModelingSystem system)
+        public ModelingEventArgs(ModelingSystem system, double t, double y, double x1, double x2)
         {
+            this.CurrentTime_t = t;
+            this.OutputValue_y = y;
+            this.nan_x1 = x1;
+            this.SecondDiff_x2 = x2;
+
             this.StepofModeling = system.StepofModeling;
             this.TimeofRegulation = system.TimeofRegulation;
             this.Noise = system.Noise;
@@ -20,10 +25,27 @@ namespace ModelingKRProj
             this.TimeofDelay = system.TimeofDelay;
             this.Pvalue = system.Pvalue;
             this.Ivalue = system.Ivalue;
-            this.Dvalue = system.Dvalue;           
+            this.Dvalue = system.Dvalue;
         }
         #endregion
         #region Propers
+        public double CurrentTime_t
+        {
+            get; private set;
+        }
+        public double OutputValue_y
+        {
+            get; private set;
+        }
+        public double nan_x1
+        {
+            get; private set;
+        }
+        public double SecondDiff_x2
+        {
+            get; private set;
+        }
+        #region ModelingSystemPropers
         public double StepofModeling
         {
             get;
@@ -77,6 +99,7 @@ namespace ModelingKRProj
             get;
             private set;
         }
+        #endregion
         #endregion
     }
 }
