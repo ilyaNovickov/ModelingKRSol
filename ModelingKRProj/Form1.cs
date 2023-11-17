@@ -20,6 +20,10 @@ namespace ModelingKRProj
 
             system = new ModelingSystem();
 
+            propertyGrid.SelectedObject = system;
+
+            propertyGrid.Refresh();
+
         }
 
     }
