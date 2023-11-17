@@ -23,8 +23,15 @@ namespace ModelingKRProj
         {
             InitializeComponent();
 
-            system = new ModelingSystem();
-
+            system = new ModelingSystem()
+            {
+                InputValue = 1,
+                GainCooficient = 10,
+                TimeConst = 10,
+                TimeofDelay = 1,
+                Pvalue = 0.11d,
+                Ivalue = 0.012d
+            };
             system.ModelingEvent += ModelingEvent;
 
             system.ModelingEvent += PhaseModelingEvent;
@@ -61,7 +68,7 @@ namespace ModelingKRProj
         private void ModelingEvent(object sender, ModelingEventArgs e)
         {
             modelingSeries.Points.Add(new DataPoint(e.CurrentTime_t, e.OutputValue_y));
-            phaseSeries.Points.Add(new DataPoint(e.nan_x1, e.DiffofError_x2));
+            phaseSeries.Points.Add(new DataPoint(e.FistError_x1, e.DiffofError_x2));
         }
 
         private void PhaseModelingEvent(object sender, ModelingEventArgs e)

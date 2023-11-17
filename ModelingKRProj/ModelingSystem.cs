@@ -146,11 +146,16 @@ namespace ModelingKRProj
         #region Methods
         public void InvokeModeling()
         {
-            double xp = 0;
-            double y = 0;
+            //Выход системы
             double yx = 0;
+            double y = 0;
+
+            double x1 = 1;
             double I = 0;
-            double x1 = 0;
+
+            double xp = 0;
+            
+            
 
             int n1 = (int)(TimeofDelay / StepofModeling);
             double[] yp = new double[n1];
