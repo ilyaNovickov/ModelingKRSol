@@ -10,14 +10,14 @@ namespace ModelingKRProj
     public class ModelingSystem
     {
         #region Vars
-        private double step;
-        private double timeofRegulation;
-        private double gainCooficient;
-        private double constofTime;
-        private double timeofDelay;
-        private double cooficientP;
-        private double cooficientI;
-        private double cooficientD;
+        private double step = 1;
+        private double timeofRegulation = 20;
+        private double gainCooficient = 1;
+        private double constofTime = 1;
+        private double timeofDelay = 1;
+        private double cooficientP = 1;
+        private double cooficientI = 1;
+        private double cooficientD = 1;
         #endregion
         #region Propers
         [Category("Моделирование")]
@@ -74,7 +74,7 @@ namespace ModelingKRProj
                 gainCooficient = value;
             }
         }
-        [Category("Значения звеньев\"")]
+        [Category("Значения звеньев")]
         [Description("Постоянная времени T")]
         [DisplayName("Постоянная времени T")]
         public double TimeConst
@@ -87,7 +87,7 @@ namespace ModelingKRProj
                 constofTime = value;
             }
         }
-        [Category("Значения звеньев\"")]
+        [Category("Значения звеньев")]
         [Description("Время запаздывания tau")]
         [DisplayName("Время запаздывания tau")]
         public double TimeofDelay
@@ -188,6 +188,8 @@ namespace ModelingKRProj
                 p++;
             }
             while (time < TimeofRegulation);
+
+            //ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, 0));
         }
         #endregion
     }
