@@ -11,7 +11,7 @@ namespace ModelingKRProj
     {
         #region Vars
         private double step = 1;
-        private double timeofRegulation = 20;
+        private double timeofModeling = 20;
         private double gainCooficient = 1;
         private double constofTime = 1;
         private double timeofDelay = 1;
@@ -37,14 +37,14 @@ namespace ModelingKRProj
         [Category("Моделирование")]
         [Description("Время моделирования tрег")]
         [DisplayName("Время моделирования tрег")]
-        public double TimeofRegulation
+        public double TimeofModeling
         {
-            get => timeofRegulation;
+            get => timeofModeling;
             set
             {
                 if (value <= 0)
                     throw new Exception("Время моделирования не может быть равень 0 или отрицательным числом");
-                timeofRegulation = value;
+                timeofModeling = value;
             }
         }
         [Category("Значения системы")]
@@ -55,8 +55,8 @@ namespace ModelingKRProj
             get; set;
         }
         [Category("Значения системы")]
-        [Description("Входное значение g")]
-        [DisplayName("Входное значение g")]
+        [Description("Входное значение ys")]
+        [DisplayName("Входное значение ys")]
         public double InputValue
         {
             get; set;
@@ -139,6 +139,14 @@ namespace ModelingKRProj
         //        cooficientD = value;
         //    }
         //}
+        public double ISE { get; private set; }
+        public double IAE { get; private set; }
+        public double ITAE { get; private set; }
+        public double ITSE { get; private set; }
+
+        public double Overregulation { get; private set; }
+        public double Oscillation { get; private set; }
+        public double TimeofRegulation { get; private set; }
         #endregion
         #region Events
         public EventHandler<ModelingEventArgs> ModelingEvent;
@@ -146,6 +154,8 @@ namespace ModelingKRProj
         #region Methods
         public void InvokeModeling()
         {
+            EnzeroValues();
+
             //Выход системы
             double yx = 0;
             double y = 0;
@@ -163,6 +173,13 @@ namespace ModelingKRProj
             double x1 = 0;
 
             double time = 0;
+
+            double autorErr = Math.Abs(InputValue) * 0.05;//Определяет значение в которое должно установиться модель +=5%
+            bool isInf = false;//Бесконечно ли моделирование?
+            double max1 = 0;//Амплитуда 1
+            double max2 = 0;//Амплитуда 2
+            double xPast = 0;//Прошлое значение x
+            double xPastPast = 0;//Позапрошлое значение x
 
             do
             {
@@ -202,12 +219,62 @@ namespace ModelingKRProj
                 ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, x2));
 
                 time = time + StepofModeling;
-            }
-            while (time < TimeofRegulation);
 
-            /*
-            ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, 0));
-            */
+                //Определение времени регулирования
+                if (autorErr > Math.Abs(x1) && isInf == true)
+                {
+                    isInf = false;
+                    TimeofRegulation = time;
+                }
+                else if (autorErr < Math.Abs(x1))
+                {
+                    isInf = true;
+                    TimeofRegulation = 0;
+                }
+
+                //Определение коофициента затухания
+                if (xPastPast < xPast && xPast > y)
+                {
+                    if (max1 == 0)
+                        max1 = xPast;
+                    else if (max2 == 0)
+                        max2 = xPast;
+                }
+
+                xPastPast = xPast;
+                xPast = y;
+
+                //Подсчёт значений для оптимизации
+                ISE = ISE + Math.Pow(x1, 2d) * StepofModeling;
+                IAE = IAE + Math.Abs(x1) * StepofModeling;
+                ITAE = ITAE + Math.Abs(x1) * time * StepofModeling;
+                ITSE = ITSE + Math.Pow(x1, 2d) * time * StepofModeling;
+            }
+            while (time < TimeofModeling);
+
+            if (TimeofRegulation != 0)
+            {
+                if (max1 > y)
+                    Overregulation = (max1 - y) * 100 / y;
+                if (max1 > y && max2 > y)
+                    Oscillation = Math.Round((max2 - y) / (max1 - y) * 100, 2);
+            }
+            else
+            {
+                Overregulation = TimeofRegulation > 0 ? Overregulation : 0;
+                Oscillation = max2 / max1;
+            }
+        }
+
+        private void EnzeroValues()
+        {
+            ISE = 0;
+            IAE = 0;
+            ITAE = 0;
+            ITSE = 0;
+            Overregulation = 0;
+            Oscillation = 0;
+            TimeofRegulation = 0;
         }
         #endregion
     }
