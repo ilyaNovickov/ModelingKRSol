@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,10 @@ namespace ModelingKRProj
         private double cooficientD;
         #endregion
         #region Propers
+        [Category("Моделирование")]
+        [Description("Шаг моделирования h")]
+        [DisplayName("Шаг моделирования h")]
+        //[TypeConverter(typeof(Class2))]
         public double StepofModeling
         {
             get => step;
@@ -29,6 +34,9 @@ namespace ModelingKRProj
                 step = value;
             }
         }
+        [Category("Моделирование")]
+        [Description("Время моделирования tрег")]
+        [DisplayName("Время моделирования tрег")]
         public double TimeofRegulation
         {
             get => timeofRegulation;
@@ -39,15 +47,23 @@ namespace ModelingKRProj
                 timeofRegulation = value;
             }
         }
+        [Category("Значения системы")]
+        [Description("Помеха f")]
+        [DisplayName("Помеха f")]
         public double Noise
         {
             get; set;
         }
+        [Category("Значения системы")]
+        [Description("Входное значение g")]
+        [DisplayName("Входное значение g")]
         public double InputValue
         {
             get; set;
         }
-
+        [Category("Значения звеньев")]
+        [Description("Коофициент усиления k")]
+        [DisplayName("Коофициент усиления k")]
         public double GainCooficient
         {
             get => gainCooficient;
@@ -58,7 +74,9 @@ namespace ModelingKRProj
                 gainCooficient = value;
             }
         }
-
+        [Category("Значения звеньев\"")]
+        [Description("Постоянная времени T")]
+        [DisplayName("Постоянная времени T")]
         public double TimeConst
         {
             get => constofTime;
@@ -69,7 +87,9 @@ namespace ModelingKRProj
                 constofTime = value;
             }
         }
-
+        [Category("Значения звеньев\"")]
+        [Description("Время запаздывания tau")]
+        [DisplayName("Время запаздывания tau")]
         public double TimeofDelay
         {
             get => timeofDelay;
@@ -80,7 +100,9 @@ namespace ModelingKRProj
                 timeofDelay = value;
             }
         }
-
+        [Category("Значения ПИД-регулятора")]
+        [Description("Коофициент П kp")]
+        [DisplayName("Коофициент П kp")]
         public double Pvalue
         {
             get => cooficientP;
@@ -91,6 +113,9 @@ namespace ModelingKRProj
                 cooficientP = value;
             }
         }
+        [Category("Значения ПИД-регулятора")]
+        [Description("Коофициент И ki")]
+        [DisplayName("Коофициент И ki")]
         public double Ivalue
         {
             get => cooficientI;
@@ -101,6 +126,9 @@ namespace ModelingKRProj
                 cooficientI = value;
             }
         }
+        [Category("Значения ПИД-регулятора")]
+        [Description("Коофициент Д kd")]
+        [DisplayName("Коофициент Д kd")]
         public double Dvalue
         {
             get => cooficientD;
