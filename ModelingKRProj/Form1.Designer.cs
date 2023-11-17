@@ -58,7 +58,7 @@
             this.startButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(800, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(800, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -70,11 +70,11 @@
             this.tableLayoutPanel1.Controls.Add(this.propertyGrid, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tabControl1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 31);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 27);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 419);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 423);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // propertyGrid
@@ -82,7 +82,7 @@
             this.propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid.Location = new System.Drawing.Point(3, 3);
             this.propertyGrid.Name = "propertyGrid";
-            this.propertyGrid.Size = new System.Drawing.Size(194, 413);
+            this.propertyGrid.Size = new System.Drawing.Size(194, 417);
             this.propertyGrid.TabIndex = 0;
             // 
             // tabControl1
@@ -93,7 +93,7 @@
             this.tabControl1.Location = new System.Drawing.Point(203, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(594, 413);
+            this.tabControl1.Size = new System.Drawing.Size(594, 417);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -113,7 +113,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(586, 384);
+            this.tabPage2.Size = new System.Drawing.Size(586, 388);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Фазовый портрет";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -142,18 +142,18 @@
             series2.ChartArea = "ChartArea1";
             series2.Name = "Series1";
             this.phaseChart.Series.Add(series2);
-            this.phaseChart.Size = new System.Drawing.Size(580, 378);
+            this.phaseChart.Size = new System.Drawing.Size(580, 382);
             this.phaseChart.TabIndex = 1;
             this.phaseChart.Text = "chart1";
             // 
             // startButton
             // 
-            this.startButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.startButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.startButton.Image = ((System.Drawing.Image)(resources.GetObject("startButton.Image")));
             this.startButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(29, 28);
-            this.startButton.Text = "toolStripButton1";
+            this.startButton.Size = new System.Drawing.Size(44, 24);
+            this.startButton.Text = "Start";
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // Form1
@@ -164,7 +164,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Моделирование САУ";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
