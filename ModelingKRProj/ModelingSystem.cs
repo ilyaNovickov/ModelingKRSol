@@ -100,7 +100,7 @@ namespace ModelingKRProj
                 timeofDelay = value;
             }
         }
-        [Category("Значения ПИД-регулятора")]
+        [Category("Значения ПИ-регулятора")]
         [Description("Коофициент П kp")]
         [DisplayName("Коофициент П kp")]
         public double Pvalue
@@ -113,7 +113,7 @@ namespace ModelingKRProj
                 cooficientP = value;
             }
         }
-        [Category("Значения ПИД-регулятора")]
+        [Category("Значения ПИ-регулятора")]
         [Description("Коофициент И ki")]
         [DisplayName("Коофициент И ki")]
         public double Ivalue
@@ -126,19 +126,19 @@ namespace ModelingKRProj
                 cooficientI = value;
             }
         }
-        [Category("Значения ПИД-регулятора")]
-        [Description("Коофициент Д kd")]
-        [DisplayName("Коофициент Д kd")]
-        public double Dvalue
-        {
-            get => cooficientD;
-            set
-            {
-                if (value <= 0)
-                    throw new Exception("Коофициент Д не может быть отрицательным");
-                cooficientD = value;
-            }
-        }
+        //[Category("Значения ПИД-регулятора")]
+        //[Description("Коофициент Д kd")]
+        //[DisplayName("Коофициент Д kd")]
+        //public double Dvalue
+        //{
+        //    get => cooficientD;
+        //    set
+        //    {
+        //        if (value <= 0)
+        //            throw new Exception("Коофициент Д не может быть отрицательным");
+        //        cooficientD = value;
+        //    }
+        //}
         #endregion
         #region Events
         public EventHandler<ModelingEventArgs> ModelingEvent;
@@ -149,8 +149,8 @@ namespace ModelingKRProj
             double xp = 0;
             double y = 0;
             double yx = 0;
-            double xt = 0;
             double I = 0;
+
             int n1 = (int)(TimeofDelay / StepofModeling);
             double[] yp = new double[n1];
 
@@ -170,7 +170,7 @@ namespace ModelingKRProj
                 xp = x1;
                 I = I + ((x1 + xp) / 2) * StepofModeling;
                 double u = Pvalue * x1 + Ivalue * I;
-                xt = Noise + u;
+                double xt = Noise + u;
                 double y1 = c1 * xt + c2 * yx;
                 yx = yx + y1 * StepofModeling;
                 y = yp[i];
