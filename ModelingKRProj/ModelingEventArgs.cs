@@ -13,8 +13,8 @@ namespace ModelingKRProj
         {
             this.CurrentTime_t = t;
             this.OutputValue_y = y;
-            this.nan_x1 = x1;
-            this.SecondDiff_x2 = x2;
+            this.FistError_x1 = x1;
+            this.DiffofError_x2 = x2;
 
             this.StepofModeling = system.StepofModeling;
             this.TimeofRegulation = system.TimeofRegulation;
@@ -25,7 +25,7 @@ namespace ModelingKRProj
             this.TimeofDelay = system.TimeofDelay;
             this.Pvalue = system.Pvalue;
             this.Ivalue = system.Ivalue;
-            this.Dvalue = system.Dvalue;
+            //this.Dvalue = system.Dvalue;
         }
         #endregion
         #region Propers
@@ -37,11 +37,11 @@ namespace ModelingKRProj
         {
             get; private set;
         }
-        public double nan_x1
+        public double FistError_x1
         {
             get; private set;
         }
-        public double SecondDiff_x2
+        public double DiffofError_x2
         {
             get; private set;
         }
@@ -94,11 +94,11 @@ namespace ModelingKRProj
             private set;
         }
 
-        public double Dvalue
-        {
-            get;
-            private set;
-        }
+        //public double Dvalue
+        //{
+        //    get;
+        //    private set;
+        //}
         #endregion
         #endregion
     }

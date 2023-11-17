@@ -61,7 +61,7 @@ namespace ModelingKRProj
         private void ModelingEvent(object sender, ModelingEventArgs e)
         {
             modelingSeries.Points.Add(new DataPoint(e.CurrentTime_t, e.OutputValue_y));
-            phaseSeries.Points.Add(new DataPoint(e.nan_x1, e.SecondDiff_x2));
+            phaseSeries.Points.Add(new DataPoint(e.nan_x1, e.DiffofError_x2));
         }
 
         private void PhaseModelingEvent(object sender, ModelingEventArgs e)

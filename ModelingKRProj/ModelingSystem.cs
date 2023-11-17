@@ -150,6 +150,7 @@ namespace ModelingKRProj
             double y = 0;
             double yx = 0;
             double I = 0;
+            double x1 = 0;
 
             int n1 = (int)(TimeofDelay / StepofModeling);
             double[] yp = new double[n1];
@@ -165,7 +166,7 @@ namespace ModelingKRProj
 
             do
             {
-                double x1 = InputValue - y;
+                x1 = InputValue - y;
                 double x2 = (x1 - xp) / StepofModeling;
                 xp = x1;
                 I = I + ((x1 + xp) / 2) * StepofModeling;
@@ -189,7 +190,7 @@ namespace ModelingKRProj
             }
             while (time < TimeofRegulation);
 
-            //ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, 0));
+            ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, 0));
         }
         #endregion
     }
