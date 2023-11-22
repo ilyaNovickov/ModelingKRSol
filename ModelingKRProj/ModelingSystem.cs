@@ -288,6 +288,30 @@ namespace ModelingKRProj
             Oscillation = 0;
             TimeofRegulation = 0;
         }
+
+        public ModelingSystem CloneSystem()
+        {
+            ModelingSystem clone = new ModelingSystem()
+            {
+                GainCooficient = this.GainCooficient,
+                TimeConst = this.TimeConst,
+                TimeofDelay = this.TimeofDelay,
+                Pvalue = this.Pvalue,
+                Ivalue = this.Ivalue,
+                TimeofModeling = this.TimeofModeling,
+                StepofModeling = this.StepofModeling,
+                InputValue = this.InputValue,
+                Noise = this.Noise,
+                ISE = this.ISE,
+                IAE = this.IAE,
+                ITAE = this.ITAE,
+                ITSE = this.ITSE,
+                Overregulation = this.Overregulation,
+                Oscillation = this.Oscillation,
+                TimeofRegulation = this.TimeofRegulation,
+            };
+            return clone;
+        }
         #endregion
     }
 }
