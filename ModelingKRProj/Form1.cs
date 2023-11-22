@@ -80,18 +80,7 @@ namespace ModelingKRProj
 
         private void optimiationButton_Click(object sender, EventArgs e)
         {
-
-
-            //Class1.OptimizingValue.MinValue = 0d;
-            //Class1.OptimizingValue.MaxValue = 10d;
-
-            //Class1 class1 = new Class1();
-
-            //class1.Func = (system) => { system.InvokeModeling(); return system.ISE; };
-            //class1.OptimizingSystem = system;
-
-            //class1.Opt();
-
+            /*
             ModelingSystem clone = system.CloneSystem();
 
             Optimization opt = new Optimization();
@@ -108,6 +97,14 @@ namespace ModelingKRProj
             system.Pvalue = opt.Args[0];
             system.Ivalue = opt.Args[1];
             startButton_Click(null, EventArgs.Empty);
+            */
+            Opt newopt = new Opt();
+            newopt.Func = (system) => { 
+                system.InvokeModeling();
+                return system.ISE;
+            };
+            newopt.OptimizingSystem = system;
+            newopt.Optm();
         }
     }
 }

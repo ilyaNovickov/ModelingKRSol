@@ -61,7 +61,7 @@ namespace ModelingKRProj
         {
             ModelingSystem clone = OptimizingSystem.CloneSystem();
 
-            void GetFuncValue(PointD testingPoint)
+            void GetFuncValue(ref PointD testingPoint)
             {
                 clone.Pvalue = testingPoint.X;
                 clone.Ivalue = testingPoint.Y;
@@ -101,7 +101,7 @@ namespace ModelingKRProj
                         point = new PointD(OptimizingSystem.Pvalue, OptimizingSystem.Ivalue + StartSpread);
                         break;
                 }
-                GetFuncValue(point);
+                GetFuncValue(ref point);
                 points.Add(point);
             }
 
@@ -113,7 +113,7 @@ namespace ModelingKRProj
                 PointD worstPoint = points[2];
 
                 PointD middle = (bestPoint + goodPoint) / 2;
-                GetFuncValue(middle);
+                GetFuncValue(ref middle);
 
 
 
