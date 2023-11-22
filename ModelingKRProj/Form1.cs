@@ -78,5 +78,19 @@ namespace ModelingKRProj
             phaseSeries.Points.Add(new DataPoint(e.FistError_x1, e.DiffofError_x2));
         }
 
+        private void optimiationButton_Click(object sender, EventArgs e)
+        {
+
+
+            Class1.OptimizingValue.MinValue = 0d;
+            Class1.OptimizingValue.MaxValue = 10d;
+
+            Class1 class1 = new Class1();
+
+            class1.Func = (system) => { system.InvokeModeling(); return system.ISE; };
+            class1.OptimizingSystem = system;
+
+            class1.Opt();
+        }
     }
 }

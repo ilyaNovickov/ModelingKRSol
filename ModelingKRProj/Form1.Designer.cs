@@ -28,26 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.startButton = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.modelingChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.phaseChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.startButton = new System.Windows.Forms.ToolStripButton();
+            this.optimiationButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.modelingChart)).BeginInit();
+            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.phaseChart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,12 +56,23 @@
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startButton});
+            this.startButton,
+            this.optimiationButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(800, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(800, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // startButton
+            // 
+            this.startButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.startButton.Image = ((System.Drawing.Image)(resources.GetObject("startButton.Image")));
+            this.startButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(44, 28);
+            this.startButton.Text = "Start";
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -70,11 +82,11 @@
             this.tableLayoutPanel1.Controls.Add(this.propertyGrid, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tabControl1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 27);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 31);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 423);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 419);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // propertyGrid
@@ -82,7 +94,7 @@
             this.propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid.Location = new System.Drawing.Point(3, 3);
             this.propertyGrid.Name = "propertyGrid";
-            this.propertyGrid.Size = new System.Drawing.Size(194, 417);
+            this.propertyGrid.Size = new System.Drawing.Size(194, 413);
             this.propertyGrid.TabIndex = 0;
             // 
             // tabControl1
@@ -93,7 +105,7 @@
             this.tabControl1.Location = new System.Drawing.Point(203, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(594, 417);
+            this.tabControl1.Size = new System.Drawing.Size(594, 413);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -106,17 +118,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Перехрдный процесс";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.phaseChart);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(586, 388);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Фазовый портрет";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // modelingChart
             // 
@@ -132,6 +133,17 @@
             this.modelingChart.TabIndex = 0;
             this.modelingChart.Text = "chart1";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.phaseChart);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(586, 388);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Фазовый портрет";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // phaseChart
             // 
             chartArea2.Name = "ChartArea1";
@@ -146,15 +158,15 @@
             this.phaseChart.TabIndex = 1;
             this.phaseChart.Text = "chart1";
             // 
-            // startButton
+            // optimiationButton
             // 
-            this.startButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.startButton.Image = ((System.Drawing.Image)(resources.GetObject("startButton.Image")));
-            this.startButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(44, 24);
-            this.startButton.Text = "Start";
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            this.optimiationButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.optimiationButton.Image = ((System.Drawing.Image)(resources.GetObject("optimiationButton.Image")));
+            this.optimiationButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.optimiationButton.Name = "optimiationButton";
+            this.optimiationButton.Size = new System.Drawing.Size(29, 28);
+            this.optimiationButton.Text = "toolStripButton1";
+            this.optimiationButton.Click += new System.EventHandler(this.optimiationButton_Click);
             // 
             // Form1
             // 
@@ -170,8 +182,8 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.modelingChart)).EndInit();
+            this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.phaseChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -189,6 +201,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart modelingChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart phaseChart;
         private System.Windows.Forms.ToolStripButton startButton;
+        private System.Windows.Forms.ToolStripButton optimiationButton;
     }
 }
 
