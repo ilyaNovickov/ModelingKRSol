@@ -108,8 +108,8 @@ namespace ModelingKRProj
             get => cooficientP;
             set
             {
-                if (value < 0)
-                    throw new Exception("Коофициент П не может быть отрицательным");
+                //if (value < 0)
+                //    throw new Exception("Коофициент П не может быть отрицательным");
                 cooficientP = value;
             }
         }
@@ -121,8 +121,8 @@ namespace ModelingKRProj
             get => cooficientI;
             set
             {
-                if (value < 0)
-                    throw new Exception("Коофициент И не может быть отрицательным");
+                //if (value < 0)
+                //    throw new Exception("Коофициент И не может быть отрицательным");
                 cooficientI = value;
             }
         }
