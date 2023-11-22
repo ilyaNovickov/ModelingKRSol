@@ -92,20 +92,22 @@ namespace ModelingKRProj
 
             //class1.Opt();
 
+            ModelingSystem clone = system.CloneSystem();
+
             Optimization opt = new Optimization();
 
             opt.Args = new double[] { system.Pvalue, system.Ivalue };
             opt.F = (doubles) =>
             {
-                system.Pvalue = doubles[0];
-                system.Ivalue = doubles[1];
-                system.InvokeModeling();
-                return system.ISE;
+                clone.Pvalue = doubles[0];
+                clone.Ivalue = doubles[1];
+                clone.InvokeModeling();
+                return clone.ISE;
             };
             opt.GetResultOptByNM();
             system.Pvalue = opt.Args[0];
             system.Ivalue = opt.Args[1];
-            system.InvokeModeling();
+            startButton_Click(null, EventArgs.Empty);
         }
     }
 }
