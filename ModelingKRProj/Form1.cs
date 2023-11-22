@@ -82,15 +82,30 @@ namespace ModelingKRProj
         {
 
 
-            Class1.OptimizingValue.MinValue = 0d;
-            Class1.OptimizingValue.MaxValue = 10d;
+            //Class1.OptimizingValue.MinValue = 0d;
+            //Class1.OptimizingValue.MaxValue = 10d;
 
-            Class1 class1 = new Class1();
+            //Class1 class1 = new Class1();
 
-            class1.Func = (system) => { system.InvokeModeling(); return system.ISE; };
-            class1.OptimizingSystem = system;
+            //class1.Func = (system) => { system.InvokeModeling(); return system.ISE; };
+            //class1.OptimizingSystem = system;
 
-            class1.Opt();
+            //class1.Opt();
+
+            Optimization opt = new Optimization();
+
+            opt.Args = new double[] { system.Pvalue, system.Ivalue };
+            opt.F = (doubles) =>
+            {
+                system.Pvalue = doubles[0];
+                system.Ivalue = doubles[1];
+                system.InvokeModeling();
+                return system.ISE;
+            };
+            opt.GetResultOptByNM();
+            system.Pvalue = opt.Args[0];
+            system.Ivalue = opt.Args[1];
+            system.InvokeModeling();
         }
     }
 }
