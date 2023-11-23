@@ -98,7 +98,7 @@ namespace ModelingKRProj
             system.Ivalue = opt.Args[1];
             startButton_Click(null, EventArgs.Empty);
             */
-            Opt newopt = new Opt();
+            Optimizator2D newopt = new Optimizator2D();
             newopt.Func = (system) => { 
                 system.InvokeModeling();
                 return system.ISE;

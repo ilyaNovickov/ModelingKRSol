@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Optimizator2D.cs" />
     <Compile Include="ModelingEventArgs.cs" />
     <Compile Include="ModelingSystem.cs" />
     <Compile Include="Form1.cs">
