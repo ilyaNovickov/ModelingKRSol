@@ -29,13 +29,17 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.startButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.optimiationButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.regulagionChartButton = new System.Windows.Forms.ToolStripButton();
+            this.phaseChartButton = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -43,10 +47,6 @@
             this.modelingChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.phaseChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.regulagionChartButton = new System.Windows.Forms.ToolStripButton();
-            this.phaseChartButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -82,6 +82,11 @@
             this.startButton.Text = "Start";
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            // 
             // optimiationButton
             // 
             this.optimiationButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -91,6 +96,31 @@
             this.optimiationButton.Size = new System.Drawing.Size(109, 28);
             this.optimiationButton.Text = "Оптимизация";
             this.optimiationButton.Click += new System.EventHandler(this.optimiationButton_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
+            // regulagionChartButton
+            // 
+            this.regulagionChartButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.regulagionChartButton.Image = ((System.Drawing.Image)(resources.GetObject("regulagionChartButton.Image")));
+            this.regulagionChartButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.regulagionChartButton.Name = "regulagionChartButton";
+            this.regulagionChartButton.Size = new System.Drawing.Size(240, 28);
+            this.regulagionChartButton.Text = "Сохранить переходный процесс";
+            this.regulagionChartButton.Click += new System.EventHandler(this.ChartButton_Click);
+            // 
+            // phaseChartButton
+            // 
+            this.phaseChartButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.phaseChartButton.Image = ((System.Drawing.Image)(resources.GetObject("phaseChartButton.Image")));
+            this.phaseChartButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.phaseChartButton.Name = "phaseChartButton";
+            this.phaseChartButton.Size = new System.Drawing.Size(213, 28);
+            this.phaseChartButton.Text = "Сохранить фазовый портрет";
+            this.phaseChartButton.Click += new System.EventHandler(this.ChartButton_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -139,14 +169,14 @@
             // 
             // modelingChart
             // 
-            chartArea3.Name = "ChartArea1";
-            this.modelingChart.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.modelingChart.ChartAreas.Add(chartArea1);
             this.modelingChart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.modelingChart.Location = new System.Drawing.Point(3, 3);
             this.modelingChart.Name = "modelingChart";
-            series3.ChartArea = "ChartArea1";
-            series3.Name = "Series1";
-            this.modelingChart.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Name = "Series1";
+            this.modelingChart.Series.Add(series1);
             this.modelingChart.Size = new System.Drawing.Size(580, 378);
             this.modelingChart.TabIndex = 0;
             this.modelingChart.Text = "chart1";
@@ -164,47 +194,17 @@
             // 
             // phaseChart
             // 
-            chartArea4.Name = "ChartArea1";
-            this.phaseChart.ChartAreas.Add(chartArea4);
+            chartArea2.Name = "ChartArea1";
+            this.phaseChart.ChartAreas.Add(chartArea2);
             this.phaseChart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.phaseChart.Location = new System.Drawing.Point(3, 3);
             this.phaseChart.Name = "phaseChart";
-            series4.ChartArea = "ChartArea1";
-            series4.Name = "Series1";
-            this.phaseChart.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "Series1";
+            this.phaseChart.Series.Add(series2);
             this.phaseChart.Size = new System.Drawing.Size(580, 378);
             this.phaseChart.TabIndex = 1;
             this.phaseChart.Text = "chart1";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
-            // 
-            // regulagionChartButton
-            // 
-            this.regulagionChartButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.regulagionChartButton.Image = ((System.Drawing.Image)(resources.GetObject("regulagionChartButton.Image")));
-            this.regulagionChartButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.regulagionChartButton.Name = "regulagionChartButton";
-            this.regulagionChartButton.Size = new System.Drawing.Size(29, 28);
-            this.regulagionChartButton.Text = "toolStripButton1";
-            this.regulagionChartButton.Click += new System.EventHandler(this.ChartButton_Click);
-            // 
-            // phaseChartButton
-            // 
-            this.phaseChartButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.phaseChartButton.Image = ((System.Drawing.Image)(resources.GetObject("phaseChartButton.Image")));
-            this.phaseChartButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.phaseChartButton.Name = "phaseChartButton";
-            this.phaseChartButton.Size = new System.Drawing.Size(29, 28);
-            this.phaseChartButton.Text = "toolStripButton2";
-            this.phaseChartButton.Click += new System.EventHandler(this.ChartButton_Click);
             // 
             // MainForm
             // 
