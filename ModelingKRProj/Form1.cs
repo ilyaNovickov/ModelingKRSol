@@ -105,6 +105,8 @@ namespace ModelingKRProj
             };
             newopt.OptimizingSystem = system;
             newopt.Optm();
+
+            startButton_Click(null, EventArgs.Empty);
         }
     }
 }
