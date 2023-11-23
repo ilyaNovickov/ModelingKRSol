@@ -10,6 +10,7 @@ namespace ModelingKRProj
     public class ModelingSystem
     {
         #region Vars
+        //Значения системы
         private double step = 1;
         private double timeofModeling = 20;
         private double gainCooficient = 1;
@@ -17,13 +18,14 @@ namespace ModelingKRProj
         private double timeofDelay = 1;
         private double cooficientP = 1;
         private double cooficientI = 1;
-        private double cooficientD = 1;
         #endregion
         #region Propers
+        /// <summary>
+        /// Шаг моделирования ht
+        /// </summary>
         [Category("Моделирование")]
         [Description("Шаг моделирования h")]
         [DisplayName("Шаг моделирования h")]
-        //[TypeConverter(typeof(Class2))]
         public double StepofModeling
         {
             get => step;
@@ -34,6 +36,9 @@ namespace ModelingKRProj
                 step = value;
             }
         }
+        /// <summary>
+        /// Время моделирования системы tрег
+        /// </summary>
         [Category("Моделирование")]
         [Description("Время моделирования tрег")]
         [DisplayName("Время моделирования tрег")]
@@ -47,6 +52,9 @@ namespace ModelingKRProj
                 timeofModeling = value;
             }
         }
+        /// <summary>
+        /// Входной шум системы f 
+        /// </summary>
         [Category("Значения системы")]
         [Description("Помеха f")]
         [DisplayName("Помеха f")]
@@ -54,6 +62,9 @@ namespace ModelingKRProj
         {
             get; set;
         }
+        /// <summary>
+        /// Входное значение ys
+        /// </summary>
         [Category("Значения системы")]
         [Description("Входное значение ys")]
         [DisplayName("Входное значение ys")]
@@ -61,6 +72,9 @@ namespace ModelingKRProj
         {
             get; set;
         }
+        /// <summary>
+        /// Коофициент усиление инерционного звена k
+        /// </summary>
         [Category("Значения звеньев")]
         [Description("Коофициент усиления k")]
         [DisplayName("Коофициент усиления k")]
@@ -74,6 +88,9 @@ namespace ModelingKRProj
                 gainCooficient = value;
             }
         }
+        /// <summary>
+        /// Постоянная времени инерционного звена T
+        /// </summary>
         [Category("Значения звеньев")]
         [Description("Постоянная времени T")]
         [DisplayName("Постоянная времени T")]
@@ -87,6 +104,9 @@ namespace ModelingKRProj
                 constofTime = value;
             }
         }
+        /// <summary>
+        /// Время запаздывания звена запаздывания tau
+        /// </summary>
         [Category("Значения звеньев")]
         [Description("Время запаздывания tau")]
         [DisplayName("Время запаздывания tau")]
@@ -100,6 +120,9 @@ namespace ModelingKRProj
                 timeofDelay = value;
             }
         }
+        /// <summary>
+        /// Коофициент П ПИ-регулятора kp
+        /// </summary>
         [Category("Значения ПИ-регулятора")]
         [Description("Коофициент П kp")]
         [DisplayName("Коофициент П kp")]
@@ -113,6 +136,9 @@ namespace ModelingKRProj
                 cooficientP = value;
             }
         }
+        /// <summary>
+        /// Коофициент И ПИ-регулятора ki
+        /// </summary>
         [Category("Значения ПИ-регулятора")]
         [Description("Коофициент И ki")]
         [DisplayName("Коофициент И ki")]
@@ -126,65 +152,81 @@ namespace ModelingKRProj
                 cooficientI = value;
             }
         }
-        //[Category("Значения ПИД-регулятора")]
-        //[Description("Коофициент Д kd")]
-        //[DisplayName("Коофициент Д kd")]
-        //public double Dvalue
-        //{
-        //    get => cooficientD;
-        //    set
-        //    {
-        //        if (value <= 0)
-        //            throw new Exception("Коофициент Д не может быть отрицательным");
-        //        cooficientD = value;
-        //    }
-        //}
+        /// <summary>
+        /// ISE критерий системы
+        /// </summary>
         [Category("Критерии оптимизации")]
         public double ISE { get; private set; }
+        /// <summary>
+        /// IAE критерий системы
+        /// </summary>
         [Category("Критерии оптимизации")]
         public double IAE { get; private set; }
+        /// <summary>
+        /// ITAE критерий системы
+        /// </summary>
         [Category("Критерии оптимизации")]
         public double ITAE { get; private set; }
+        /// <summary>
+        /// ITSE критерий системы
+        /// </summary>
         [Category("Критерии оптимизации")]
         public double ITSE { get; private set; }
+        /// <summary>
+        /// Перерегулирование системы sigma
+        /// </summary>
         [Category("Характеристики САУ")]
         [Description("Перерегулирование")]
         [DisplayName("Перерегулирование")]
         public double Overregulation { get; private set; }
+        /// <summary>
+        /// Колебательность системы psi
+        /// </summary>
         [Category("Характеристики САУ")]
         [Description("Колебательность")]
         [DisplayName("Колебательность")]
         public double Oscillation { get; private set; }
+        /// <summary>
+        /// Время регулирования системы tпер
+        /// </summary>
         [Category("Характеристики САУ")]
         [Description("Время регулирования")]
         [DisplayName("Время регулирования")]
         public double TimeofRegulation { get; private set; }
         #endregion
         #region Events
+        /// <summary>
+        /// Событие моделирования системы
+        /// </summary>
         public EventHandler<ModelingEventArgs> ModelingEvent;
         #endregion
         #region Methods
+        /// <summary>
+        /// Вызов моделирования системы
+        /// </summary>
         public void InvokeModeling()
         {
-            EnzeroValues();
+            EnzeroValues();//Установка определнных свойств системы на "0"
 
             //Выход системы
             double yx = 0;
             double y = 0;
 
+            //Интеграл для интегрального звена ПИ-регулятора
             double I = 0;
 
+            //Массив для моделирования запаздывания
             int n1 = (int)(TimeofDelay / StepofModeling);
             double[] yp = new double[n1];
 
             int i = 0;
 
+            //Вспомогательные коофициенты для уравнения Эйлера
             double c1 = GainCooficient / TimeConst;
             double c2 = -1 / TimeConst;
 
-            double x1 = 0;
+            double x1 = 0;//Значение ошибки
 
-            double time = 0;
             //Определяет значение в которое должно установиться модель +=5%
             double autorErr = Math.Abs(InputValue) * 0.05;
             bool isInf = false;//Бесконечно ли моделирование?
@@ -193,7 +235,10 @@ namespace ModelingKRProj
             double xPast = 0;//Прошлое значение x
             double xPastPast = 0;//Позапрошлое значение x
 
-            do
+            //Квант времени
+            double time = 0;
+
+            do//Моделирование системы
             {
                 double xp = x1;
 
@@ -227,7 +272,7 @@ namespace ModelingKRProj
                 {
                     y = yx;
                 }
-
+                //Вызов события моделирования
                 ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, x2));
 
                 time = time + StepofModeling;
@@ -262,8 +307,9 @@ namespace ModelingKRProj
                 ITAE = ITAE + Math.Abs(x1) * time * StepofModeling;
                 ITSE = ITSE + Math.Pow(x1, 2d) * time * StepofModeling;
             }
-            while (time < TimeofModeling);
+            while (time < TimeofModeling);//Моделируем до указанного времени
 
+            //Доп определение качества системы
             if (TimeofRegulation != 0)
             {
                 if (max1 > y)
@@ -278,6 +324,9 @@ namespace ModelingKRProj
             }
         }
 
+        /// <summary>
+        /// Очистка от значений определённых свойств системы
+        /// </summary>
         private void EnzeroValues()
         {
             ISE = 0;
@@ -289,6 +338,10 @@ namespace ModelingKRProj
             TimeofRegulation = 0;
         }
 
+        /// <summary>
+        /// Клонирование системы без копирования обработчика событий
+        /// </summary>
+        /// <returns></returns>
         public ModelingSystem CloneSystem()
         {
             ModelingSystem clone = new ModelingSystem()
