@@ -50,6 +50,11 @@ namespace ModelingKRProj
             {
                 return new PointD(left.X / right, left.Y / right);
             }
+            public static PointD operator *(double left, PointD right)
+            {
+                return new PointD(right.X * left, right.Y * left);
+            }
+
         }
 
         public ModelingSystem OptimizingSystem { get; set; }
@@ -79,9 +84,7 @@ namespace ModelingKRProj
 
             double reflactionCoof = 1d;
             double compressionCoof = 2d;
-            double stretching = 0.5d;
-
-            
+            double stretchingCoof = 0.5d;
 
             List<PointD> points = new List<PointD>(3);
 
@@ -105,7 +108,7 @@ namespace ModelingKRProj
                 points.Add(point);
             }
 
-            while (true)
+            while (GetDispersion(points) > this.StopValue)
             {
                 points.Sort(ComparePointsByValues);
                 PointD bestPoint = points[0];
@@ -115,9 +118,100 @@ namespace ModelingKRProj
                 PointD middle = (bestPoint + goodPoint) / 2;
                 GetFuncValue(ref middle);
 
+                PointD reflectionPoint = (1 + reflactionCoof) * middle - reflactionCoof * worstPoint;
+                GetFuncValue(ref reflectionPoint);
 
+                if (reflectionPoint.FuncValue < bestPoint.FuncValue)
+                {
+                    PointD stretchingPoint = (1 - stretchingCoof) * middle + stretchingCoof * reflectionPoint;
+                    GetFuncValue(ref stretchingPoint);
 
+                    if (stretchingPoint.FuncValue < reflectionPoint.FuncValue)
+                        points[2] = stretchingPoint;
+                    else
+                        points[2] = reflectionPoint;
+                }
+                else if (reflectionPoint.FuncValue < goodPoint.FuncValue)
+                {
+                    points[2] = reflectionPoint;
+                }
+                else
+                {
+                    if (reflectionPoint.FuncValue < worstPoint.FuncValue)
+                    {
+                        worstPoint = reflectionPoint;
+                        points[2] = worstPoint;
+                    }
+                    points.Sort(ComparePointsByValues);
+
+                    bestPoint = points[0];
+                    worstPoint = points[2];
+
+                    PointD comprassionPoint = compressionCoof * worstPoint + (1 - compressionCoof) * middle;
+                    GetFuncValue(ref comprassionPoint);
+
+                    if (comprassionPoint.FuncValue < worstPoint.FuncValue)
+                        points[2] = comprassionPoint;
+                    else
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            PointD point = bestPoint + (points[i] - bestPoint) / 2;
+                            GetFuncValue(ref point);
+                            points[i] = point;
+                        }
+                    }
+                }
+
+                points.Sort(ComparePointsByValues);
+
+                OptimizingSystem.Pvalue = points[0].X;
+                OptimizingSystem.Ivalue = points[0].Y;
             }
+        }
+
+        private double GetDispersion(List<PointD> points)
+        {
+            double[] mathExpection = new double[2];
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                mathExpection[0] += points[i].X;
+                mathExpection[1] += points[i].Y;
+            }
+
+            mathExpection[0] = mathExpection[0] / points.Count;
+            mathExpection[1] = mathExpection[1] / points.Count;
+
+            double res0 = 0;
+            for (int i = 0; i < points.Count; i++)
+            {
+                double temp = 0;
+
+                temp += Math.Pow(mathExpection[0] - points[i].X, 2);
+                temp += Math.Pow(mathExpection[1] - points[i].Y, 2);
+
+                res0 += Math.Sqrt(temp);
+            }
+
+            //double res1 = res0 / points.Count;
+            return res0 / points.Count;
+
+
+            //Альтернативныый поиск
+            //double res = 0;
+            //for (int i = 0; i < points.Count; i++)
+            //{
+            //    double temp = 0;
+            //    temp += Math.Pow(mathExpection[0] - points[i].X, 2);
+            //    temp += Math.Pow(mathExpection[1] - points[i].Y, 2);
+
+            //    res += temp;
+            //}
+
+            ////double res3 = Math.Sqrt(res / points.Count);
+
+            //return Math.Sqrt(res / points.Count);
         }
     }
 }
