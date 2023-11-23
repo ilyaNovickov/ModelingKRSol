@@ -11,7 +11,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ModelingKRProj
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         ModelingSystem system;
 
@@ -19,7 +19,7 @@ namespace ModelingKRProj
 
         Series phaseSeries;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -80,24 +80,6 @@ namespace ModelingKRProj
 
         private void optimiationButton_Click(object sender, EventArgs e)
         {
-            /*
-            ModelingSystem clone = system.CloneSystem();
-
-            Optimization opt = new Optimization();
-
-            opt.Args = new double[] { system.Pvalue, system.Ivalue };
-            opt.F = (doubles) =>
-            {
-                clone.Pvalue = doubles[0];
-                clone.Ivalue = doubles[1];
-                clone.InvokeModeling();
-                return clone.ISE;
-            };
-            opt.GetResultOptByNM();
-            system.Pvalue = opt.Args[0];
-            system.Ivalue = opt.Args[1];
-            startButton_Click(null, EventArgs.Empty);
-            */
             Optimizator2D newopt = new Optimizator2D();
             newopt.Func = (system) => { 
                 system.InvokeModeling();
