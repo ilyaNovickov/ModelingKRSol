@@ -90,5 +90,29 @@ namespace ModelingKRProj
 
             startButton_Click(null, EventArgs.Empty);
         }
+
+        private void ChartButton_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "JPEG (*.jpeg)|*.jpeg";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    string path = sfd.FileName;
+
+                    if (path == null || path == "")
+                    {
+                        MessageBox.Show("Ошибка: не выбран файл сохранения");
+                        return;
+                    }
+
+                    if (sender == regulagionChartButton)
+                        this.modelingChart.SaveImage(path, ChartImageFormat.Jpeg);
+                    else if (sender == phaseChartButton)
+                        this.phaseChart.SaveImage(path, ChartImageFormat.Jpeg);
+                }
+            }
+        }
     }
 }
