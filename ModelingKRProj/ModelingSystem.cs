@@ -240,24 +240,25 @@ namespace ModelingKRProj
 
             do//Моделирование системы
             {
+                //Прошлое значение ошибки
                 double xp = x1;
-
+                //Ошибка
                 x1 = InputValue - y;
-
+                //Производная от ошибки
                 double x2 = xp == 0 ? 0 : (x1 - xp) / StepofModeling;
-
+                //Запоминаем значение ошибки
                 xp = x1;
-
+                //Расчёт интеграла
                 I = I + ((x1 + xp) / 2) * StepofModeling;
-
+                //Управляющее воздействие
                 double u = Pvalue * x1 + Ivalue * I;
-
+                //Суммирования u и f
                 double xt = Noise + u;
-
+                //Производная Эйлера
                 double y1 = c1 * xt + c2 * yx;
-
+                //Метод Эйлера
                 yx = yx + y1 * StepofModeling;
-
+                //Моделирование запаздывания, если оно есть
                 if (n1 != 0)
                 {
                     y = yp[i];
@@ -274,7 +275,7 @@ namespace ModelingKRProj
                 }
                 //Вызов события моделирования
                 ModelingEvent?.Invoke(this, new ModelingEventArgs(this, time, y, x1, x2));
-
+                //Проход дальше по времени
                 time = time + StepofModeling;
 
                 //Определение времени регулирования
