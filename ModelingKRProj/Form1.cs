@@ -126,12 +126,56 @@ namespace ModelingKRProj
         {
             void SaveToExcel(string path)
             {
+                //Открытие приложения Excel
+                Excel.Application excelApp = new Excel.Application();
+                excelApp.Visible = true;
+                //Добавление книги в таблицу Excel
+                Excel.Workbook workbook = excelApp.Workbooks.Add();
 
+                Excel.Worksheet sheet = (Excel.Worksheet)excelApp.Sheets[1];
+
+                excelApp.Cells[1, 1] = "Значение T";
+                excelApp.Cells[1, 2] = "Значение Y";
+                excelApp.Cells[1, 4] = "Значение X1";
+                excelApp.Cells[1, 5] = "Значение X2";
+
+                for (int row = 2; row < modelingSeries.Points.Count + 2; row++)
+                {
+                    excelApp.Cells[row, 1] = modelingSeries.Points[row - 2].XValue;
+                    excelApp.Cells[row, 2] = modelingSeries.Points[row - 2].YValues[0];
+                    excelApp.Cells[row, 4] = phaseSeries.Points[row - 2].XValue;
+                    excelApp.Cells[row, 5] = phaseSeries.Points[row - 2].YValues[0];
+                }
+                //График переходного процесса
+                Excel.ChartObjects xlCharts = (Excel.ChartObjects)sheet.ChartObjects();
+                Excel.ChartObject myChart = xlCharts.Add(110, 0, 350, 250);
+                Excel.Chart chart = myChart.Chart;
+                Excel.SeriesCollection seriesCollection = (Excel.SeriesCollection)chart.SeriesCollection();
+                Excel.Series series = seriesCollection.NewSeries();
+                series.XValues = sheet.get_Range("A2", "A" + (modelingSeries.Points.Count + 2));
+                series.Values = sheet.get_Range("B2", "B" + (modelingSeries.Points.Count + 2));
+                chart.ChartType = Excel.XlChartType.xlXYScatterSmooth;
+                //Фазовый портрет
+                Excel.ChartObject myChart2 = xlCharts.Add(210, 0, 350, 250);
+                Excel.Chart chart2 = myChart2.Chart;
+                Excel.SeriesCollection seriesCollection2 = (Excel.SeriesCollection)chart.SeriesCollection();
+                Excel.Series series2 = seriesCollection2.NewSeries();
+                series2.XValues = sheet.get_Range("D2", "D" + (modelingSeries.Points.Count + 2));
+                series2.Values = sheet.get_Range("F2", "F" + (modelingSeries.Points.Count + 2));
+                chart2.ChartType = Excel.XlChartType.xlXYScatterSmooth;
+
+                //Сохранение документа по указанному пути
+                workbook.SaveAs(path);
+                //Выход из программы Excel
+                excelApp.Quit();
             }
 
+            if (modelingSeries.Points.Count == 0)
+                return;
+            //инициализация диалогового окна сохранения фала
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                sfd.FileName = "";
+                sfd.FileName = "Excel book (*.xlsx)|*.xlsx";
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
@@ -139,7 +183,7 @@ namespace ModelingKRProj
 
                     if (path == null || path == "")
                         return;
-
+                    //Сохранение в файл
                     SaveToExcel(path);
                 }
             }
