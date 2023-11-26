@@ -1,12 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ModelingKRProj
 {
@@ -134,8 +127,8 @@ namespace ModelingKRProj
                 switch (i)
                 {
                     default:
-                    case 0: 
-                        point = new PointD(OptimizingSystem.Pvalue, OptimizingSystem.Ivalue); 
+                    case 0:
+                        point = new PointD(OptimizingSystem.Pvalue, OptimizingSystem.Ivalue);
                         break;
                     case 1:
                         point = new PointD(OptimizingSystem.Pvalue + StartSpread, OptimizingSystem.Ivalue);

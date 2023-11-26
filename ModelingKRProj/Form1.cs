@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -89,7 +83,8 @@ namespace ModelingKRProj
         {
             //Инициализация 2-у мерного оптимизатора коофициентов ПИ-регулятора
             Optimizator2D newopt = new Optimizator2D();
-            newopt.Func = (system) => { //Целевая функция
+            newopt.Func = (system) =>
+            { //Целевая функция
                 system.InvokeModeling();
                 return system.ISE;
             };
