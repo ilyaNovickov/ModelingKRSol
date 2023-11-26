@@ -158,10 +158,10 @@ namespace ModelingKRProj
                 //Фазовый портрет
                 Excel.ChartObject myChart2 = xlCharts.Add(210, 0, 350, 250);
                 Excel.Chart chart2 = myChart2.Chart;
-                Excel.SeriesCollection seriesCollection2 = (Excel.SeriesCollection)chart.SeriesCollection();
+                Excel.SeriesCollection seriesCollection2 = (Excel.SeriesCollection)chart2.SeriesCollection();
                 Excel.Series series2 = seriesCollection2.NewSeries();
                 series2.XValues = sheet.get_Range("D2", "D" + (modelingSeries.Points.Count + 2));
-                series2.Values = sheet.get_Range("F2", "F" + (modelingSeries.Points.Count + 2));
+                series2.Values = sheet.get_Range("E2", "E" + (modelingSeries.Points.Count + 2));
                 chart2.ChartType = Excel.XlChartType.xlXYScatterSmooth;
 
                 //Сохранение документа по указанному пути
@@ -175,7 +175,7 @@ namespace ModelingKRProj
             //инициализация диалогового окна сохранения фала
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                sfd.FileName = "Excel book (*.xlsx)|*.xlsx";
+                sfd.Filter = "Excel book (*.xlsx)|*.xlsx";
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
