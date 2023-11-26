@@ -95,7 +95,7 @@ namespace ModelingKRProj
             };
             newopt.OptimizingSystem = system;
             //Оптимизация
-            newopt.Optm();
+            newopt.NelderMidOptimization();
             //Выхов события нажатия на кнопку "Start" для обновления данных
             startButton_Click(null, EventArgs.Empty);
         }
