@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ModelingKRProj
 {
@@ -123,7 +124,25 @@ namespace ModelingKRProj
 
         private void excelButton_Click(object sender, EventArgs e)
         {
+            void SaveToExcel(string path)
+            {
 
+            }
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.FileName = "";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    string path = sfd.FileName;
+
+                    if (path == null || path == "")
+                        return;
+
+                    SaveToExcel(path);
+                }
+            }
         }
     }
 }
