@@ -391,6 +391,7 @@ namespace ModelingKRProj
             while (time < TimeofModeling);//Моделируем до указанного времени
         }
 
+        //определение динамических свойств САУ
         public void Modeling()
         {
             /*
