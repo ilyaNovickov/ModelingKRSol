@@ -289,6 +289,7 @@ namespace ModelingKRProj
                 //Определение коофициента затухания
                 if (xPastPast < xPast && xPast > y)
                 {
+                    //Определение локальных максимумов
                     if (max1 == 0)
                         max1 = xPast;
                     else if (max2 == 0)
@@ -309,8 +310,10 @@ namespace ModelingKRProj
             //Доп определение качества системы
             if (TimeofRegulation != 0)
             {
+                //Определение перерегулирования
                 if (max1 > y)
                     Overregulation = (max1 - y) * 100 / y;
+                //Определение колебательности
                 if (max1 > y && max2 > y)
                     Oscillation = Math.Round((max2 - y) / (max1 - y) * 100, 2);
             }
@@ -363,5 +366,115 @@ namespace ModelingKRProj
             return clone;
         }
         #endregion
+        //Метод цифрового моделирования
+        public void DigitalModeling()
+        {
+            //Шаг квантования
+            double h = 1d;
+
+            //Квант времени
+            double time = 0;
+
+            do//Моделирование системы
+            {
+                /*
+                 * Моделирование
+                 */
+
+                //Проход дальше по времени
+                time = time + StepofModeling;
+            }
+            while (time < TimeofModeling);//Моделируем до указанного времени
+        }
+
+        public void Modeling()
+        {
+            EnzeroValues();//Установка определнных свойств системы на "0"
+
+            //Выход системы
+            double yx = 0;
+            double y = 0;
+
+            //Интеграл для интегрального звена ПИ-регулятора
+            double I = 0;
+
+            //Массив для моделирования запаздывания
+            int n1 = (int)(TimeofDelay / StepofModeling);
+            double[] yp = new double[n1];
+
+            int i = 0;
+
+            //Вспомогательные коофициенты для уравнения Эйлера
+            double c1 = GainCooficient / TimeConst;
+            double c2 = -1 / TimeConst;
+
+            double x1 = 0;//Значение ошибки
+
+            //Определяет значение в которое должно установиться модель +=5%
+            double autorErr = Math.Abs(InputValue) * 0.05;
+            bool isInf = false;//Бесконечно ли моделирование?
+            double max1 = 0;//Амплитуда 1
+            double max2 = 0;//Амплитуда 2
+            double xPast = 0;//Прошлое значение x
+            double xPastPast = 0;//Позапрошлое значение x
+
+            //Квант времени
+            double time = 0;
+
+            do//Моделирование системы
+            {
+                
+                //Проход дальше по времени
+                time = time + StepofModeling;
+
+                //Определение времени регулирования
+                if (autorErr > Math.Abs(x1) && isInf == true)
+                {
+                    isInf = false;
+                    TimeofRegulation = time;
+                }
+                else if (autorErr < Math.Abs(x1))
+                {
+                    isInf = true;
+                    TimeofRegulation = 0;
+                }
+
+                //Определение коофициента затухания
+                if (xPastPast < xPast && xPast > y)
+                {
+                    //Определение локальных максимумов
+                    if (max1 == 0)
+                        max1 = xPast;
+                    else if (max2 == 0)
+                        max2 = xPast;
+                }
+
+                xPastPast = xPast;
+                xPast = y;
+
+                //Подсчёт значений для оптимизации
+                ISE = ISE + Math.Pow(x1, 2d) * StepofModeling;
+                IAE = IAE + Math.Abs(x1) * StepofModeling;
+                ITAE = ITAE + Math.Abs(x1) * time * StepofModeling;
+                ITSE = ITSE + Math.Pow(x1, 2d) * time * StepofModeling;
+            }
+            while (time < TimeofModeling);//Моделируем до указанного времени
+
+            //Доп определение качества системы
+            if (TimeofRegulation != 0)
+            {
+                //Определение перерегулирования
+                if (max1 > y)
+                    Overregulation = (max1 - y) * 100 / y;
+                //Определение колебательности
+                if (max1 > y && max2 > y)
+                    Oscillation = Math.Round((max2 - y) / (max1 - y) * 100, 2);
+            }
+            else
+            {
+                Overregulation = TimeofRegulation > 0 ? Overregulation : 0;
+                Oscillation = max2 / max1;
+            }
+        }
     }
 }
