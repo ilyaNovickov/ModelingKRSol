@@ -369,6 +369,10 @@ namespace ModelingKRProj
         //Метод цифрового моделирования
         public void DigitalModeling()
         {
+            /*
+             * Значения свойств системы
+             */
+
             //Шаг квантования
             double h = 1d;
 
@@ -389,26 +393,13 @@ namespace ModelingKRProj
 
         public void Modeling()
         {
-            EnzeroValues();//Установка определнных свойств системы на "0"
-
-            //Выход системы
-            double yx = 0;
-            double y = 0;
-
-            //Интеграл для интегрального звена ПИ-регулятора
-            double I = 0;
-
-            //Массив для моделирования запаздывания
-            int n1 = (int)(TimeofDelay / StepofModeling);
-            double[] yp = new double[n1];
-
-            int i = 0;
-
-            //Вспомогательные коофициенты для уравнения Эйлера
-            double c1 = GainCooficient / TimeConst;
-            double c2 = -1 / TimeConst;
-
-            double x1 = 0;//Значение ошибки
+            /*
+             * Значения свойств системы
+             * 
+             * Доп переменные
+             * x1 - Ошибка
+             * y - выходное значение системы
+             */
 
             //Определяет значение в которое должно установиться модель +=5%
             double autorErr = Math.Abs(InputValue) * 0.05;
@@ -452,11 +443,6 @@ namespace ModelingKRProj
                 xPastPast = xPast;
                 xPast = y;
 
-                //Подсчёт значений для оптимизации
-                ISE = ISE + Math.Pow(x1, 2d) * StepofModeling;
-                IAE = IAE + Math.Abs(x1) * StepofModeling;
-                ITAE = ITAE + Math.Abs(x1) * time * StepofModeling;
-                ITSE = ITSE + Math.Pow(x1, 2d) * time * StepofModeling;
             }
             while (time < TimeofModeling);//Моделируем до указанного времени
 
