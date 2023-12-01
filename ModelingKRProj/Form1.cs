@@ -122,6 +122,7 @@ namespace ModelingKRProj
             }
         }
 
+        //Нажатин на кнопку экспорта данных в файл книги Excel
         private void excelButton_Click(object sender, EventArgs e)
         {
             void SaveToExcel(string path)
